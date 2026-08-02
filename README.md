@@ -7,15 +7,22 @@ Static site. No build step. `index.html` (homepage) + `score.html` (Deal Fundabi
 2. Project → Settings → Domains → add `granton.finance` and `www.granton.finance`.
 
 ## DNS (Namecheap → granton.finance → Advanced DNS)
+
+### Site (Vercel)
 | Type | Host | Value |
 |------|------|-------|
 | A | @ | 76.76.21.21 |
 | CNAME | www | cname.vercel-dns.com |
 
-## Email (choose one, then tell Claude which)
-- Google Workspace: add Google's MX record (SMTP.GOOGLE.COM, priority 1), create `hello@granton.finance`.
-- Namecheap Private Email: enable in Namecheap (MX auto-set), create `hello@granton.finance`.
+### Email (Namecheap Private Email — mailbox name: `hello`)
+| Type | Host | Value | Priority |
+|------|------|-------|----------|
+| MX | @ | mx1.privateemail.com | 10 |
+| MX | @ | mx2.privateemail.com | 10 |
+| TXT | @ | v=spf1 include:spf.privateemail.com ~all | — |
+| TXT | _dmarc | v=DMARC1; p=none; rua=mailto:hello@granton.finance | — |
+| TXT | default._domainkey | (DKIM key — copy from Private Email dashboard after enabling) | — |
 
-After the mailbox exists, add SPF/DKIM/DMARC — exact records depend on the provider chosen; Claude supplies them on request.
+DMARC starts at `p=none` (monitor mode); tighten to `quarantine` after a few clean weeks of sending.
 
 Contact address is hard-coded as `hello@granton.finance` (one `CONTACT_EMAIL` const in `score.html`, mailto links in `index.html`).
