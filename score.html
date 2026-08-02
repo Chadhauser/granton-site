@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deal Fundability Score — Granton Finance</title>
+<meta name="description" content="Answer eight questions about the business purchase, buyout or succession you're planning and get an honest read on how fundable it is — free, in two minutes.">
+<link rel="canonical" href="https://granton.finance/score">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#20262D;--paper:#FBFBF9;--green:#1E5C46;--green-dark:#14402F;--brass:#A8823B;--line:#D8D6CF;--muted:#5D646C;--danger:#8A3B2E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none!important;animation:none!important} }
+  body{background:var(--paper);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:660px;margin:0 auto;padding:0 22px}
+  header{border-bottom:1px solid var(--line);padding:20px 0}
+  .mast{display:flex;align-items:baseline;justify-content:space-between}
+  .wordmark{font-family:'Spectral',serif;font-weight:700;font-size:20px;letter-spacing:.01em;color:var(--green);text-decoration:none}
+  .wordmark span{color:var(--ink);font-weight:500}
+  .mast small{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+  .hero{padding:56px 0 40px}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+  h1{font-family:'Spectral',serif;font-weight:600;font-size:clamp(30px,5.5vw,42px);line-height:1.12;letter-spacing:-.01em;margin-bottom:16px}
+  .hero p{color:var(--muted);max-width:52ch}
+  .hero .start{margin-top:26px}
+  .btn{display:inline-block;border:0;cursor:pointer;font:inherit;background:var(--green);color:#fff;font-weight:600;padding:13px 26px;border-radius:3px;text-decoration:none;transition:background .15s ease}
+  .btn:hover{background:var(--green-dark)}
+  .btn:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+  .btn.ghost{background:transparent;color:var(--green);border:1px solid var(--green)}
+  .btn.ghost:hover{background:rgba(30,92,70,.07)}
+  .quiz{display:none;padding:34px 0 60px}
+  .quiz.active{display:block}
+  .qcount{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+  .qbar{height:2px;background:var(--line);margin-bottom:34px;position:relative}
+  .qbar i{position:absolute;left:0;top:0;bottom:0;background:var(--green);transition:width .25s ease}
+  .qtext{font-family:'Spectral',serif;font-weight:600;font-size:clamp(22px,4vw,28px);line-height:1.2;margin-bottom:8px}
+  .qhelp{color:var(--muted);font-size:15px;margin-bottom:24px}
+  .opts{display:grid;gap:10px}
+  .opt{text-align:left;font:inherit;cursor:pointer;background:#fff;border:1px solid var(--line);border-radius:3px;padding:14px 16px;transition:border-color .12s ease, background .12s ease}
+  .opt:hover{border-color:var(--green)}
+  .opt.picked{border-color:var(--green);background:rgba(30,92,70,.06)}
+  .qnav{display:flex;justify-content:space-between;margin-top:30px}
+  .backlink{background:none;border:0;font:inherit;color:var(--muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+  .backlink:hover{color:var(--ink)}
+  .memo{display:none;padding:40px 0 30px}
+  .memo.active{display:block}
+  .memo-card{background:#fff;border:1px solid var(--ink);border-radius:2px;padding:30px 28px 24px;position:relative}
+  .memo-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:6px}
+  .memo-head h2{font-family:'Spectral',serif;font-size:19px;font-weight:700}
+  .memo-head time{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)}
+  .ledger{width:100%;border-collapse:collapse;font-family:'IBM Plex Mono',monospace;font-size:13.5px}
+  .ledger td{padding:9px 0;border-bottom:1px dotted var(--line);vertical-align:top}
+  .ledger td:last-child{text-align:right;white-space:nowrap;font-weight:500}
+  .ledger tr.total td{border-bottom:0;border-top:2px solid var(--ink);padding-top:12px;font-weight:500}
+  .score-line{display:flex;justify-content:space-between;align-items:center;margin-top:2px}
+  .score-num{font-family:'IBM Plex Mono',monospace;font-size:46px;font-weight:500;color:var(--brass);line-height:1}
+  .score-num sub{font-size:16px;color:var(--muted);font-weight:400}
+  .verdict{font-family:'Spectral',serif;font-weight:700;font-size:20px;text-align:right}
+  .verdict.strong{color:var(--green)}
+  .verdict.workable{color:var(--brass)}
+  .verdict.reshape{color:var(--danger)}
+  .memo-note{margin-top:18px;font-size:15px;color:var(--ink)}
+  .memo-note strong{font-weight:600}
+  .memo-small{margin-top:14px;font-size:12.5px;color:var(--muted)}
+  .capture{margin-top:34px;border-top:1px solid var(--line);padding-top:30px}
+  .capture h3{font-family:'Spectral',serif;font-weight:600;font-size:22px;margin-bottom:8px}
+  .capture p{color:var(--muted);margin-bottom:18px;max-width:52ch}
+  .cap-actions{display:flex;gap:12px;flex-wrap:wrap}
+  footer{border-top:1px solid var(--line);margin-top:70px;padding:26px 0 46px}
+  footer p{font-size:12.5px;color:var(--muted);max-width:70ch}
+  footer .fm{font-family:'IBM Plex Mono',monospace;letter-spacing:.04em;margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap mast">
+    <a class="wordmark" href="/">Granton <span>Finance</span></a>
+    <small>Deal Fundability Score</small>
+  </div>
+</header>
+
+<section class="hero wrap" id="hero">
+  <div class="eyebrow">Free · Two minutes · No sign-up to see your score</div>
+  <h1>Could your deal actually be funded?</h1>
+  <p>Buying a business, buying out a partner, or planning a succession? Eight questions, answered honestly, give you an honest read back — how lenders will see the deal, and what would make it stronger. Assessed the way a chartered management accountant structures it, not the way a commission desk sells it.</p>
+  <div class="start"><button class="btn" onclick="startQuiz()">Score my deal</button></div>
+</section>
+
+<section class="quiz wrap" id="quiz" aria-live="polite">
+  <div class="qcount" id="qcount">Question 1 of 8</div>
+  <div class="qbar"><i id="qbarfill" style="width:12.5%"></i></div>
+  <div class="qtext" id="qtext"></div>
+  <div class="qhelp" id="qhelp"></div>
+  <div class="opts" id="opts"></div>
+  <div class="qnav">
+    <button class="backlink" id="backbtn" onclick="goBack()">Back</button>
+    <span></span>
+  </div>
+</section>
+
+<section class="memo wrap" id="memo">
+  <div class="memo-card">
+    <div class="memo-head">
+      <h2>Indicative fundability memo</h2>
+      <time id="memodate"></time>
+    </div>
+    <table class="ledger" id="ledger"></table>
+    <div class="score-line">
+      <div class="score-num"><span id="scorenum">0</span><sub>/100</sub></div>
+      <div class="verdict" id="verdicttext"></div>
+    </div>
+    <p class="memo-note" id="memonote"></p>
+    <p class="memo-small">Indicative only — a structuring view, not a credit decision or an offer of finance. Every deal has features a questionnaire can't see; some score low and complete, some score high and shouldn't.</p>
+  </div>
+
+  <div class="capture">
+    <h3>Want the full structuring view?</h3>
+    <p>Send your score across and get a free, no-obligation structuring session: which lenders realistically back deals like yours, how to shape it, and what to fix first — before you spend anything on lawyers.</p>
+    <div class="cap-actions">
+      <a class="btn" id="emailbtn" href="#">Email my score to Granton</a>
+      <button class="btn ghost" onclick="restart()">Score another deal</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="fm">Granton Finance · hello@granton.finance</p>
+    <p>Granton Finance arranges commercial finance introductions for UK limited companies — acquisition, management buyout, succession and refinance funding. Business-to-business, unregulated lending only. We are a broker/introducer, not a lender, and nothing here is financial advice. Founded and run by a chartered management accountant (ACMA CGMA).</p>
+  </div>
+</footer>
+
+<script>
+const CONTACT_EMAIL = "hello@granton.finance";
+const BRAND = "Granton Finance";
+
+const QUESTIONS = [
+  {t:"What kind of deal is it?",h:"Pick the closest fit.",opts:[["Buying a business from its owner",12,"Business purchase"],["Buying out a co-owner or family member (MBO / family buyout)",13,"Buyout / MBO"],["Succession — funding the next generation or management to take over",12,"Succession"],["Refinancing an existing business to move forward",10,"Refinance"]],label:"Deal type"},
+  {t:"Roughly how much funding does the deal need?",h:"The total you'd need to borrow — not the full price.",opts:[["Under £250k",12,"Under £250k"],["£250k – £1m",12,"£250k–£1m"],["£1m – £3m",10,"£1m–£3m"],["Over £3m",7,"Over £3m"]],label:"Funding required"},
+  {t:"How much can you put in yourself?",h:"Cash deposit as a share of the deal — lenders nearly always want skin in the game.",opts:[["Under 10%",3,"Deposit under 10%"],["10% – 25%",9,"Deposit 10–25%"],["25% – 40%",12,"Deposit 25–40%"],["Over 40%",14,"Deposit over 40%"]],label:"Deposit"},
+  {t:"Is the business you're buying (or refinancing) profitable?",h:"Sustainable profit is what repays the debt — it matters more than turnover.",opts:[["Loss-making",2,"Currently loss-making"],["Around break-even",6,"Around break-even"],["Profitable — under £100k a year",11,"Profit under £100k"],["Profitable — over £100k a year",15,"Profit over £100k"]],label:"Profitability"},
+  {t:"What's actually in the business — assets or mostly goodwill?",h:"Property, equipment and a solid debtor book all widen the funding options.",opts:[["Mostly goodwill / reputation / contracts",6,"Mainly goodwill"],["Some equipment, vehicles or stock",9,"Some hard assets"],["A meaningful debtor book (customers on credit terms)",10,"Debtor book"],["Property or strong asset backing",14,"Property / strong assets"]],label:"Asset backing"},
+  {t:"Would the seller leave some money in the deal?",h:"A vendor loan — the seller being repaid over time — is the most under-used tool in small-company deals.",opts:[["Yes — it's already discussed",12,"Vendor loan agreed"],["Possibly — it hasn't come up yet",9,"Vendor loan possible"],["No — they want it all on completion",4,"No vendor loan"],["Not applicable (refinance)",8,"N/A — refinance"]],label:"Vendor participation"},
+  {t:"What's your track record?",h:"Lenders back people as much as businesses.",opts:[["I run or have run a business in this sector",13,"Sector owner-operator"],["I've run a business, different sector",10,"Business owner, other sector"],["Senior role in this sector, first time owning",9,"Sector senior, first purchase"],["New to the sector and to ownership",4,"New to sector & ownership"]],label:"Track record"},
+  {t:"How much time do you have?",h:"Funding raised early survives; funding raised late kills deals.",opts:[["Three months or more",8,"3+ months runway"],["One to three months",6,"1–3 months"],["Under a month",3,"Under a month"],["No fixed deadline yet",7,"No deadline yet"]],label:"Timeline"}
+];
+
+let idx = 0;
+const answers = new Array(QUESTIONS.length).fill(null);
+
+function show(id){ document.querySelectorAll('#hero,#quiz,#memo').forEach(s=>s.classList.remove('active')); if(id!=='hero'){document.getElementById('hero').style.display='none'}else{document.getElementById('hero').style.display='block'} document.getElementById(id).classList.add('active'); window.scrollTo({top:0}); }
+
+function startQuiz(){ idx=0; render(); show('quiz'); }
+function restart(){ answers.fill(null); document.getElementById('hero').style.display='block'; document.querySelectorAll('#quiz,#memo').forEach(s=>s.classList.remove('active')); window.scrollTo({top:0}); }
+
+function render(){
+  const q = QUESTIONS[idx];
+  document.getElementById('qcount').textContent = `Question ${idx+1} of ${QUESTIONS.length}`;
+  document.getElementById('qbarfill').style.width = `${((idx+1)/QUESTIONS.length)*100}%`;
+  document.getElementById('qtext').textContent = q.t;
+  document.getElementById('qhelp').textContent = q.h;
+  const box = document.getElementById('opts'); box.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='opt'+(answers[idx]===i?' picked':'');
+    b.textContent=o[0];
+    b.onclick=()=>{ answers[idx]=i; if(idx<QUESTIONS.length-1){ idx++; render(); } else { finish(); } };
+    box.appendChild(b);
+  });
+  document.getElementById('backbtn').style.visibility = idx===0 ? 'hidden':'visible';
+}
+function goBack(){ if(idx>0){ idx--; render(); } }
+
+function finish(){
+  let total=0; const rows=[];
+  QUESTIONS.forEach((q,i)=>{ const o=q.opts[answers[i]]; total+=o[1]; rows.push([q.label, o[2], o[1]]); });
+  const led=document.getElementById('ledger'); led.innerHTML='';
+  rows.forEach(r=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${r[0]} — ${r[1]}</td><td>${r[2]}</td>`; led.appendChild(tr); });
+  const tr=document.createElement('tr'); tr.className='total'; tr.innerHTML=`<td>Fundability score</td><td>${total} / 100</td>`; led.appendChild(tr);
+
+  document.getElementById('scorenum').textContent=total;
+  const v=document.getElementById('verdicttext'); const note=document.getElementById('memonote');
+  if(total>=70){ v.textContent='Strong footing'; v.className='verdict strong';
+    note.innerHTML='<strong>Lenders will take this seriously.</strong> Deals shaped like yours get funded — the work now is choosing the right structure and the right lenders first time, so you keep terms strong and timelines short.';
+  } else if(total>=50){ v.textContent='Workable — needs structuring'; v.className='verdict workable';
+    note.innerHTML='<strong>Fundable, but not as it stands.</strong> Deals like this usually complete when they\'re restructured — often a vendor loan, a different security mix, or staging the purchase. The gap between \u201cworkable\u201d and \u201cfunded\u201d is structuring, done early.';
+  } else { v.textContent='Needs reshaping'; v.className='verdict reshape';
+    note.innerHTML='<strong>Honestly: hard to fund in this shape.</strong> That\'s not the end — it\'s a signal to reshape before approaching anyone. Deposit size, seller participation and timing are usually the movable pieces. Better to hear that now than after months of declines.';
+  }
+  document.getElementById('memodate').textContent = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+
+  const lines = rows.map(r=>`${r[0]}: ${r[1]} (${r[2]} pts)`).join('%0D%0A');
+  const subject = encodeURIComponent(`Fundability Score ${total}/100 — free structuring session`);
+  const body = `My deal scored ${total}/100 on the ${BRAND} Fundability Score.%0D%0A%0D%0A${lines}%0D%0A%0D%0AI'd like the free structuring session. The best number to reach me on is: `;
+  document.getElementById('emailbtn').href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+
+  show('memo');
+}
+</script>
+</body>
+</html>
