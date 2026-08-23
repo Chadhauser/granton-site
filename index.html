@@ -32,8 +32,7 @@
   .top-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1080px;margin:0 auto}
   .brand{font-size:20px;letter-spacing:.02em;font-weight:600}
   .brand .mark{color:var(--brass)}
-  .brand small{display:block;font-family:"Helvetica Neue",Arial,sans-serif;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);font-weight:600;margin-top:2px}
-  nav.top-nav{display:flex;gap:26px;font-family:"Helvetica Neue",Arial,sans-serif;font-size:13.5px;letter-spacing:.02em}
+  nav.top-nav{display:flex;gap:26px;font-family:"Helvetica Neue",Arial,sans-serif;font-size:13.5px;letter-spacing:.02em;align-items:center}
   nav.top-nav a{color:var(--ink-2);text-decoration:none}
   nav.top-nav a:hover{color:var(--brass)}
   .cta-sm{background:var(--ink);color:var(--paper)!important;padding:9px 16px;border-radius:2px;font-weight:600}
@@ -44,20 +43,23 @@
   .hero .eyebrow{font-family:"Helvetica Neue",Arial,sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);font-weight:700;margin-bottom:22px}
   .hero h1{font-size:clamp(34px,5.4vw,58px);line-height:1.08;letter-spacing:-.015em;max-width:15ch;font-weight:600}
   .hero h1 em{font-style:italic;color:var(--brass-deep)}
-  .hero .lede{margin-top:26px;font-size:20px;max-width:52ch;color:var(--ink-2)}
+  .hero .lede{margin-top:26px;font-size:18.5px;max-width:62ch;color:var(--ink-2)}
   .hero .actions{margin-top:36px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
   .btn{font-family:"Helvetica Neue",Arial,sans-serif;font-size:15px;font-weight:600;padding:14px 26px;border-radius:2px;text-decoration:none;display:inline-block;transition:.15s}
   .btn-solid{background:var(--ink);color:var(--paper)}
   .btn-solid:hover{background:var(--brass-deep)}
   .btn-ghost{border:1.5px solid var(--ink);color:var(--ink)}
   .btn-ghost:hover{background:var(--ink);color:var(--paper)}
-  .seal{position:absolute;right:-40px;top:50%;transform:translateY(-50%);width:340px;height:340px;opacity:.5;pointer-events:none}
-  @media(max-width:900px){.seal{display:none}}
+  .seal{position:absolute;right:40px;top:50%;transform:translateY(-50%);width:290px;height:290px;opacity:1;pointer-events:none}
+  @media(max-width:1180px){.seal{right:16px;width:240px;height:240px}}
+  @media(max-width:1000px){.seal{display:none}}
+  .hero .wrap{position:relative;z-index:1}
+  @media(min-width:1001px){.hero h1{max-width:24ch}.hero .lede{max-width:46ch}}
 
   .strip{background:var(--ink);color:var(--paper);padding:22px 0}
-  .strip-inner{display:flex;flex-wrap:wrap;gap:14px 40px;align-items:center;justify-content:center;font-family:"Helvetica Neue",Arial,sans-serif;font-size:13.5px;letter-spacing:.04em}
+  .strip-inner{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:14px 32px;align-items:center;justify-content:center;font-family:"Helvetica Neue",Arial,sans-serif;font-size:13.5px;letter-spacing:.04em}
   .strip-inner span{opacity:.9;display:flex;align-items:center;gap:9px}
-  .strip-inner .dot{width:5px;height:5px;border-radius:50%;background:var(--brass)}
+  .strip-inner .dot{width:5px;height:5px;border-radius:50%;background:var(--brass);flex:0 0 auto}
 
   section{padding:76px 0}
   .sec-label{font-family:"Helvetica Neue",Arial,sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);font-weight:700;margin-bottom:16px}
@@ -75,7 +77,7 @@
   @media(max-width:820px){.svc-grid{grid-template-columns:1fr}}
   .svc{background:var(--card);padding:30px 28px}
   .svc .n{font-family:"Helvetica Neue",Arial,sans-serif;font-size:12px;color:var(--brass);font-weight:700;letter-spacing:.08em}
-  .svc h3{font-size:20px;margin:12px 0 8px;font-weight:600}
+  .svc h3{font-size:20px;margin:12px 0 8px;font-weight:600;line-height:1.2}
   .svc p{font-size:15px;color:var(--ink-2)}
   .svc.lead-svc{background:var(--ink);color:var(--paper)}
   .svc.lead-svc h3{color:var(--paper)}
@@ -96,7 +98,7 @@
   .steps{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
   @media(max-width:820px){.steps{grid-template-columns:1fr;gap:26px}}
   .step .sn{font-family:"Helvetica Neue",Arial,sans-serif;font-size:13px;font-weight:700;color:var(--paper);background:var(--brass);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;letter-spacing:0}
-  .step h3{font-size:19px;margin:16px 0 8px;font-weight:600}
+  .step h3{font-size:19px;margin:16px 0 8px;font-weight:600;line-height:1.2}
   .step p{color:var(--ink-2);font-size:16px}
 
   .final{background:var(--paper-2);border-top:1px solid var(--line);text-align:center}
@@ -117,9 +119,7 @@
 
 <header class="top">
   <div class="top-inner">
-    <div class="brand">Granton<span class="mark"> Finance</span>
-      <small>Est. 1955 · Chartered</small>
-    </div>
+    <div class="brand">Granton<span class="mark"> Finance</span></div>
     <nav class="top-nav">
       <a href="#difference">The difference</a>
       <a href="#finance">What we arrange</a>
@@ -143,10 +143,10 @@
     <circle cx="170" cy="170" r="150" stroke="#9a6a3a" stroke-width="1"/>
     <circle cx="170" cy="170" r="140" stroke="#9a6a3a" stroke-width="0.5"/>
     <circle cx="170" cy="170" r="104" stroke="#9a6a3a" stroke-width="0.5"/>
-    <text x="170" y="162" text-anchor="middle" font-family="Iowan Old Style, Georgia, serif" font-size="46" fill="#9a6a3a" font-weight="600">71</text>
-    <text x="170" y="190" text-anchor="middle" font-family="Helvetica Neue, Arial, sans-serif" font-size="11" letter-spacing="3" fill="#9a6a3a">YEARS</text>
+    <text x="170" y="160" text-anchor="middle" font-family="Helvetica Neue, Arial, sans-serif" font-size="11" letter-spacing="3" fill="#9a6a3a">SINCE</text>
+    <text x="170" y="200" text-anchor="middle" font-family="Iowan Old Style, Georgia, serif" font-size="44" fill="#9a6a3a" font-weight="600">1955</text>
     <path id="arc" d="M 170 40 A 130 130 0 1 1 169 40" fill="none"/>
-    <text font-family="Helvetica Neue, Arial, sans-serif" font-size="10.5" letter-spacing="4" fill="#9a6a3a"><textPath href="#arc" startOffset="2%">A FAMILY COMPANY · TRADING SINCE 1955 · SPALDWICK</textPath></text>
+    <text font-family="Helvetica Neue, Arial, sans-serif" font-size="10.5" letter-spacing="4" fill="#9a6a3a"><textPath href="#arc" startOffset="2%">A FAMILY COMPANY · SPALDWICK · HUNTINGDONSHIRE</textPath></text>
   </svg>
 </section>
 
@@ -220,7 +220,7 @@
 <section class="heritage" id="heritage">
   <div class="wrap">
     <div class="sec-label">Our history</div>
-    <h2>Seventy-one years of standing behind our word.</h2>
+    <h2>Standing behind our word since 1955.</h2>
     <div class="timeline">
       <div class="era">
         <div class="yr">1955</div>
@@ -232,7 +232,7 @@
       </div>
       <div class="era">
         <div class="yr">Today</div>
-        <p>A family company with seven decades of trading standing behind everything we arrange.</p>
+        <p>A family company whose trading history stands behind everything we arrange.</p>
       </div>
       <div class="era">
         <div class="yr">Next</div>
@@ -296,7 +296,7 @@
   </div>
   <div class="wrap" style="display:block">
     <p class="legal">
-      Granton Finance is a trading name of Edwards Bros (Spaldwick) Ltd, a company registered in England &amp; Wales (no. 00598511), registered office Fenland House, 15b Hostmoor Avenue, March, Cambridgeshire, PE15 0AX, and a member of the Finance &amp; Intermediary Broker Association (FIBA), membership number FIB42279. We introduce limited-company clients to commercial lenders and are remunerated by commission, the amount of which is disclosed in writing before any drawdown. We provide general commercial-finance introduction, not regulated financial advice, and we do not advise on or arrange consumer credit. © 2026 Edwards Bros (Spaldwick) Ltd.
+      Granton Finance is a trading name of Edwards Bros (Spaldwick) Ltd, a company registered in England &amp; Wales (no. 00598511), registered office Fenland House, 15b Hostmoor Avenue, March, Cambridgeshire, PE15 0AX, and a member of the Finance &amp; Intermediary Broker Association (FIBA), membership number FIB42279. We introduce limited-company clients to commercial lenders and are remunerated by commission, the amount of which is disclosed in writing before any drawdown. We provide general commercial-finance introduction, not regulated financial advice, and we do not advise on or arrange consumer credit.<br><br>If you are unhappy with anything we have done, email hello@granton.finance marking it for the attention of Peter Edwards. We will acknowledge your complaint within three working days and give you a written response within fifteen working days. If we cannot resolve it between us, you may refer the matter to FIBA.<br><br><a href="/privacy">Privacy notice</a> · © 2026 Edwards Bros (Spaldwick) Ltd.
     </p>
   </div>
 </footer>
