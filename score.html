@@ -6,6 +6,8 @@
 <title>Deal Fundability Score — Granton Finance</title>
 <meta name="description" content="Answer eight questions about the business purchase, buyout or succession you're planning and get an honest read on how fundable it is — free, in two minutes.">
 <link rel="canonical" href="https://granton.finance/score">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#1E5C46">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -17,8 +19,9 @@
   body{background:var(--paper);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
   .wrap{max-width:660px;margin:0 auto;padding:0 22px}
   header{border-bottom:1px solid var(--line);padding:20px 0}
-  .mast{display:flex;align-items:baseline;justify-content:space-between}
-  .wordmark{font-family:'Spectral',serif;font-weight:700;font-size:20px;letter-spacing:.01em;color:var(--green);text-decoration:none}
+  .mast{display:flex;align-items:center;justify-content:space-between}
+  .wordmark{font-family:'Spectral',serif;font-weight:700;font-size:20px;letter-spacing:.01em;color:var(--green);text-decoration:none;display:flex;align-items:center}
+  .wordmark::before{content:"";display:block;width:12px;height:31px;flex:0 0 auto;background:url(/logo.svg) no-repeat center/contain;margin-right:11px}
   .wordmark span{color:var(--ink);font-weight:500}
   .mast small{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
   .hero{padding:56px 0 40px}
