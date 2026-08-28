@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Management buyout calculator — can your MBO be funded? | Granton Finance</title>
+<meta name="description" content="A free management buyout calculator: model the funding structure of an MBO — deposit, vendor loan, bank debt — and see whether the company's profits can realistically service the borrowing.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://granton.finance/mbo-calculator">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#1a2b33">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Management Buyout Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"},"provider":{"@type":"Organization","name":"Granton Finance — Edwards Bros (Spaldwick) Ltd"}}</script>
+<style>
+  :root{
+    --ink:#1a2b33;--ink-2:#3d5560;--paper:#f4f1ea;--paper-2:#eae4d7;
+    --line:#d6cdba;--brass:#9a6a3a;--brass-deep:#7a5228;
+    --good:#3f6b4f;--warn:#9a6a3a;--bad:#8a3d33;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Iowan Old Style","Palatino Linotype","Palatino",Georgia,serif;color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  header.top{border-bottom:1px solid var(--line);background:var(--paper)}
+  .top-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1080px;margin:0 auto}
+  .brand{font-size:20px;letter-spacing:.02em;font-weight:600;text-decoration:none;color:var(--ink);display:flex;align-items:center}
+  .brand::before{content:"";display:block;width:13px;height:34px;flex:0 0 auto;background:url(/logo.svg) no-repeat center/contain;margin-right:12px}
+  .brand .mark{color:var(--brass)}
+  nav.top-nav a{font-family:"Helvetica Neue",Arial,sans-serif;font-size:13.5px;color:var(--ink-2);text-decoration:none;margin-left:22px}
+  nav.top-nav a:hover{color:var(--brass)}
+  main{padding:64px 0 80px}
+  .doc{max-width:46rem}
+  .eyebrow{font-family:"Helvetica Neue",Arial,sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);font-weight:700;margin-bottom:18px}
+  h1{font-size:clamp(32px,5vw,46px);line-height:1.12;letter-spacing:-.015em;font-weight:600}
+  .stand{font-size:18.5px;color:var(--ink-2);margin-top:18px;padding-bottom:20px;border-bottom:2px solid var(--brass)}
+  h2{font-size:23px;font-weight:600;margin:40px 0 12px;padding-top:24px;border-top:1px solid var(--line);line-height:1.2}
+  p{margin-bottom:14px;color:var(--ink-2);font-size:16.5px}
+  a{color:var(--brass-deep)}
+  .calc{background:#fff;border:1px solid var(--line);padding:30px;margin-top:34px}
+  .field{margin-bottom:20px}
+  .field label{display:block;font-family:"Helvetica Neue",Arial,sans-serif;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);font-weight:700;margin-bottom:6px}
+  .field input[type=number]{width:100%;padding:12px 14px;font-family:"Helvetica Neue",Arial,sans-serif;font-size:17px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+  .field input[type=number]:focus{outline:2px solid var(--brass);border-color:var(--brass)}
+  .field .hint{font-size:13.5px;color:var(--ink-2);font-family:"Helvetica Neue",Arial,sans-serif;margin-top:5px;text-transform:none;letter-spacing:0;font-weight:400}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+  .results{margin-top:6px;border-top:2px solid var(--brass);padding-top:22px}
+  .stack{margin:14px 0 20px}
+  .bar{display:flex;height:34px;border:1px solid var(--line);overflow:hidden}
+  .bar div{height:100%}
+  .seg-eq{background:var(--ink)}
+  .seg-vl{background:var(--brass)}
+  .seg-db{background:var(--ink-2)}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-family:"Helvetica Neue",Arial,sans-serif;font-size:12.5px;color:var(--ink-2)}
+  .legend span::before{content:"";display:inline-block;width:10px;height:10px;margin-right:6px}
+  .legend .l-eq::before{background:var(--ink)}
+  .legend .l-vl::before{background:var(--brass)}
+  .legend .l-db::before{background:var(--ink-2)}
+  table.out{width:100%;border-collapse:collapse;font-family:"Helvetica Neue",Arial,sans-serif;font-size:15px;margin:10px 0 6px}
+  table.out td{padding:9px 0;border-bottom:1px solid var(--paper-2);color:var(--ink-2)}
+  table.out td:last-child{text-align:right;font-weight:600;color:var(--ink)}
+  .verdict{margin-top:18px;padding:18px 20px;border-left:4px solid var(--brass);background:var(--paper-2)}
+  .verdict strong{display:block;font-family:"Helvetica Neue",Arial,sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+  .v-good{border-left-color:var(--good)}.v-good strong{color:var(--good)}
+  .v-warn{border-left-color:var(--warn)}.v-warn strong{color:var(--warn)}
+  .v-bad{border-left-color:var(--bad)}.v-bad strong{color:var(--bad)}
+  .smallprint{font-family:"Helvetica Neue",Arial,sans-serif;font-size:12.5px;color:var(--ink-2);margin-top:16px}
+  .cta{background:var(--paper-2);border:1px solid var(--line);border-left:4px solid var(--brass);padding:26px 28px;margin-top:44px}
+  .cta h2{border-top:0;padding-top:0;margin-top:0}
+  .cta .sans{font-family:"Helvetica Neue",Arial,sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);font-weight:700}
+  footer{background:var(--ink);color:rgba(244,241,234,.7);padding:40px 0;font-family:"Helvetica Neue",Arial,sans-serif;font-size:13px;line-height:1.7}
+  footer a{color:var(--brass);text-decoration:none}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="/">Granton<span class="mark"> Finance</span></a>
+    <nav class="top-nav"><a href="/score">Fundability score</a><a href="/">Back to site</a></nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+<div class="doc">
+  <div class="eyebrow">Free tool</div>
+  <h1>Management buyout calculator</h1>
+  <p class="stand">Model the funding structure of an MBO in one minute — deposit, vendor loan, borrowed money — and see whether the company's own profits can realistically pay for it. The same first sums we run before any deal goes near a lender.</p>
+
+  <div class="calc">
+    <div class="grid2">
+      <div class="field">
+        <label for="price">Agreed purchase price (£)</label>
+        <input type="number" id="price" value="1000000" min="0" step="10000">
+        <div class="hint">What the buyout team is paying for the shares or business.</div>
+      </div>
+      <div class="field">
+        <label for="ebitda">Annual EBITDA (£)</label>
+        <input type="number" id="ebitda" value="250000" min="0" step="5000">
+        <div class="hint">Sustainable annual profit before interest, tax, depreciation and amortisation.</div>
+      </div>
+      <div class="field">
+        <label for="deposit">Team's own money in (£)</label>
+        <input type="number" id="deposit" value="100000" min="0" step="5000">
+        <div class="hint">Cash the management team puts in. Lenders want skin in the game.</div>
+      </div>
+      <div class="field">
+        <label for="vendor">Vendor loan / deferred (£)</label>
+        <input type="number" id="vendor" value="300000" min="0" step="10000">
+        <div class="hint">The part of the price the seller agrees to receive over time. Common in MBOs — often 20–40%.</div>
+      </div>
+      <div class="field">
+        <label for="rate">Assumed interest rate (% p.a.)</label>
+        <input type="number" id="rate" value="9" min="0" max="30" step="0.25">
+        <div class="hint">Your assumption, not our promise — pricing depends on the deal.</div>
+      </div>
+      <div class="field">
+        <label for="term">Debt term (years)</label>
+        <input type="number" id="term" value="5" min="1" max="15" step="1">
+        <div class="hint">How long the borrowed money is repaid over. 4–6 years is typical.</div>
+      </div>
+    </div>
+
+    <div class="results">
+      <div class="stack">
+        <div class="bar" id="bar"></div>
+        <div class="legend"><span class="l-eq">Team's money</span><span class="l-vl">Vendor loan</span><span class="l-db">Borrowed</span></div>
+      </div>
+      <table class="out">
+        <tr><td>Debt required from lenders</td><td id="o-debt">—</td></tr>
+        <tr><td>Annual repayments on that debt (capital + interest)</td><td id="o-service">—</td></tr>
+        <tr><td>Debt service coverage (EBITDA ÷ repayments)</td><td id="o-dscr">—</td></tr>
+        <tr><td>Leverage (debt ÷ EBITDA)</td><td id="o-lev">—</td></tr>
+      </table>
+      <div class="verdict" id="verdict"><strong id="v-title">—</strong><span id="v-text"></span></div>
+      <p class="smallprint">Illustrative only. Amortising repayment assumed; real facilities vary in structure, pricing and covenants, and vendor loan terms (interest, standstill, ranking) materially affect what senior lenders will do. This tool provides general illustration, not advice or an offer of terms. Your figures stay in your browser — nothing is sent to us.</p>
+    </div>
+  </div>
+
+  <h2>What the numbers mean</h2>
+  <p><strong>Coverage</strong> is the number a credit committee reads first: how many times the company's annual profit covers the annual repayments. Above roughly 2×, the deal breathes. Between about 1.25× and 2× it can work, but the structure has to be right — term, vendor standstill, working capital — and the forecast has to hold. Below 1.25× the company cannot pay for its own purchase as structured, and something has to change: price, deferral, term, or the deal itself.</p>
+  <p><strong>Leverage</strong> is the second read: total borrowing as a multiple of EBITDA. UK SME lenders are typically comfortable somewhere up to 2–3× for deals like this; beyond that, the case needs to be exceptional or the structure needs more vendor support.</p>
+  <p>The most common fix when an MBO doesn't stack up is not a cheaper loan — it is a bigger vendor loan. A seller who defers more of the price, on sensible terms, reduces the day-one borrowing, lifts the coverage, and signals to every lender that the person who knows the business best believes in its future. That is a structuring conversation, and it is precisely the work we do.</p>
+
+  <div class="cta">
+    <span class="sans">The real version of this sum</span>
+    <h2>Want these numbers run properly — on your actual deal?</h2>
+    <p>A chartered management accountant reads your accounts, pre-underwrites the case the way the credit committee will, and tells you straight: fundable, fundable-with-changes, or don't. Start with the <a href="/score">fundability score</a>, or email the shape of the deal to <a href="mailto:hello@granton.finance?subject=MBO%20enquiry"><strong>hello@granton.finance</strong></a>.</p>
+  </div>
+</div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Granton Finance is a trading name of Edwards Bros (Spaldwick) Ltd, a company registered in England &amp; Wales (no. 00598511), registered office Fenland House, 15b Hostmoor Avenue, March, Cambridgeshire, PE15 0AX, and a member of the Finance &amp; Intermediary Broker Association (FIBA), membership number FIB42279. We introduce limited-company clients to commercial lenders and are remunerated by commission, the amount of which is disclosed in writing before any drawdown. We provide general commercial-finance introduction, not regulated financial advice, and we do not advise on or arrange consumer credit.</p>
+    <p><a href="/privacy">Privacy notice</a> · © 2026 Edwards Bros (Spaldwick) Ltd.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var ids=["price","ebitda","deposit","vendor","rate","term"];
+  function n(id){var v=parseFloat(document.getElementById(id).value);return isFinite(v)&&v>=0?v:0}
+  function gbp(x){return "\u00a3"+Math.round(x).toLocaleString("en-GB")}
+  function calc(){
+    var price=n("price"),ebitda=n("ebitda"),dep=n("deposit"),ven=n("vendor"),rate=n("rate")/100,term=Math.max(1,n("term"));
+    if(dep+ven>price){ven=Math.max(0,price-dep);document.getElementById("vendor").value=ven;}
+    var debt=Math.max(0,price-dep-ven);
+    var service;
+    if(debt===0){service=0}
+    else if(rate===0){service=debt/term}
+    else{var r=rate/12,m=term*12,pmt=debt*r/(1-Math.pow(1+r,-m));service=pmt*12}
+    var dscr=service>0?ebitda/service:Infinity;
+    var lev=ebitda>0?debt/ebitda:Infinity;
+    var bar=document.getElementById("bar");bar.innerHTML="";
+    if(price>0){
+      [["seg-eq",dep],["seg-vl",ven],["seg-db",debt]].forEach(function(s){
+        if(s[1]>0){var d=document.createElement("div");d.className=s[0];d.style.width=(s[1]/price*100)+"%";d.title=gbp(s[1]);bar.appendChild(d);}
+      });
+    }
+    document.getElementById("o-debt").textContent=gbp(debt);
+    document.getElementById("o-service").textContent=debt>0?gbp(service)+" / year":"\u00a30";
+    document.getElementById("o-dscr").textContent=debt>0?(dscr>=99?"99\u00d7+":dscr.toFixed(2)+"\u00d7"):"n/a \u2014 no debt";
+    document.getElementById("o-lev").textContent=debt>0?(lev>=99?"99\u00d7+":lev.toFixed(2)+"\u00d7 EBITDA"):"0\u00d7";
+    var v=document.getElementById("verdict"),vt=document.getElementById("v-title"),vx=document.getElementById("v-text");
+    v.className="verdict";
+    if(price===0||ebitda===0){vt.textContent="Enter your figures";vx.textContent="Put in the purchase price and the company's sustainable EBITDA to see whether the deal can pay for itself.";}
+    else if(debt===0){v.className+=" v-good";vt.textContent="No borrowing needed";vx.textContent="The deposit and vendor loan cover the full price. The remaining questions are the vendor loan terms and working capital \u2014 worth structuring properly, but there is no lender to persuade.";}
+    else if(dscr>=2&&lev<=2.5){v.className+=" v-good";vt.textContent="Stacks up on these assumptions";vx.textContent="Coverage above 2\u00d7 and sensible leverage \u2014 the shape of a fundable MBO. The work now is evidencing the EBITDA and getting the vendor loan terms right, which is exactly what pre-underwriting is for.";}
+    else if(dscr>=1.25&&lev<=3.5){v.className+=" v-warn";vt.textContent="Workable \u2014 but the structure has to be right";vx.textContent="This is fundable territory, with no slack for a soft forecast. Lengthening the term, deferring more to the vendor, or a modest price adjustment would each improve the coverage. This is a structuring conversation before it is a lending one.";}
+    else{v.className+=" v-bad";vt.textContent="Doesn't stack up as entered \u2014 and we'd tell you so";vx.textContent="On these numbers the company cannot service the borrowing its own purchase requires. That doesn't always kill the deal: a larger vendor deferral, a longer term, or a different price can transform it. But as entered, an honest adviser says don't borrow this \u2014 restructure it.";}
+  }
+  ids.forEach(function(id){document.getElementById(id).addEventListener("input",calc)});
+  calc();
+})();
+</script>
+
+</body>
+</html>
