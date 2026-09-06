@@ -152,6 +152,7 @@
 <script>
 const CONTACT_EMAIL = "hello@granton.finance";
 const BRAND = "Granton Finance";
+const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlc2ducW1vaGNhd21wY21zdXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzMjE4OTAsImV4cCI6MjA5Mzg5Nzg5MH0.NQv6-XMYj5bTJKeohcZ58-KdDS2JNQlPP4N9ywxbvIs";
 
 const QUESTIONS = [
   {t:"What kind of deal is it?",h:"Pick the closest fit.",opts:[["Buying a business from its owner",12,"Business purchase"],["Buying out a co-owner or family member (MBO / family buyout)",13,"Buyout / MBO"],["Succession — funding the next generation or management to take over",12,"Succession"],["Refinancing an existing business to move forward",10,"Refinance"]],label:"Deal type"},
@@ -232,8 +233,8 @@ document.getElementById('capform').addEventListener('submit', async function(e){
       headers:{
         'Content-Type':'application/json',
         'Content-Profile':'sheetmtd',
-        'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlc2ducW1vaGNhd21wY21zdXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzMjE4OTAsImV4cCI6MjA5Mzg5Nzg5MH0.NQv6-XMYj5bTJKeohcZ58-KdDS2JNQlPP4N9ywxbvIs',
-        'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdWJhYmFzZSIsInJlZiI6InBlc2ducW1vaGNhd21wY21zdXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzMjE4OTAsImV4cCI6MjA5Mzg5Nzg5MH0.NQv6-XMYj5bTJKeohcZ58-KdDS2JNQlPP4N9ywxbvIs',
+        'apikey':SB_KEY,
+        'Authorization':'Bearer '+SB_KEY,
         'Prefer':'return=minimal'
       },
       body:JSON.stringify({email:em.toLowerCase(),source:src})
