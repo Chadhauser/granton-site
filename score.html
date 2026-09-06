@@ -71,7 +71,11 @@
   .capture{margin-top:34px;border-top:1px solid var(--line);padding-top:30px}
   .capture h3{font-family:'Spectral',serif;font-weight:600;font-size:22px;margin-bottom:8px}
   .capture p{color:var(--muted);margin-bottom:18px;max-width:52ch}
-  .cap-actions{display:flex;gap:12px;flex-wrap:wrap}
+  .capform{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .capform input[type=email]{flex:1;min-width:230px;padding:13px 15px;font-size:16px;font-family:inherit;border:1.5px solid var(--ink);border-radius:3px;background:#fff}
+  .capok{display:none;font-family:'Spectral',serif;font-weight:600;color:var(--green-dark);margin-bottom:14px}
+  .cap-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .cap-actions a#emailbtn{color:var(--green);font-size:14.5px}
   footer{border-top:1px solid var(--line);margin-top:70px;padding:26px 0 46px}
   footer p{font-size:12.5px;color:var(--muted);max-width:70ch;margin-bottom:8px}
   footer .fm{font-family:'IBM Plex Mono',monospace;letter-spacing:.04em;margin-bottom:8px}
@@ -123,9 +127,14 @@
 
   <div class="capture">
     <h3>Want the full structuring view?</h3>
-    <p>Send your score across and get a free, no-obligation structuring session: which lenders realistically back deals like yours, how to shape it, and what to fix first — before you spend anything on lawyers.</p>
+    <p>Pop your email in and we'll come back with a free, no-obligation structuring view of your deal: which lenders realistically back deals like yours, how to shape it, and what to fix first — before you spend anything on lawyers.</p>
+    <form class="capform" id="capform" novalidate>
+      <input type="email" id="capemail" placeholder="you@company.co.uk" required aria-label="Email address">
+      <button type="submit" class="btn">Get my free structuring view</button>
+    </form>
+    <div class="capok" id="capok">Done — your score summary is with us. Expect a considered reply, usually the same working day.</div>
     <div class="cap-actions">
-      <a class="btn" id="emailbtn" href="#">Email my score to Granton</a>
+      <a id="emailbtn" href="#">Prefer to email? Send your score from your own inbox</a>
       <button class="btn ghost" onclick="restart()">Score another deal</button>
     </div>
   </div>
@@ -134,7 +143,7 @@
 <footer>
   <div class="wrap">
     <p class="fm">Granton Finance · hello@granton.finance</p>
-    <p>Your answers stay in your browser. Nothing is sent to us unless you choose to email your score across.</p>
+    <p>Your answers stay in your browser while you use the tool. If you submit your email or send the pre-filled message, your score summary comes to us so we can reply — that's the only thing it's used for.</p>
     <p>Granton Finance arranges commercial finance introductions for UK limited companies — acquisition, management buyout, succession and refinance funding. Business-to-business, unregulated lending only. We are a broker/introducer, not a lender, and nothing here is financial advice. Founded and run by a chartered management accountant (ACMA CGMA).</p>
     <p>Granton Finance is a trading name of Edwards Bros (Spaldwick) Ltd, registered in England &amp; Wales no. 00598511, registered office Fenland House, 15b Hostmoor Avenue, March, Cambridgeshire PE15 0AX. Member of FIBA, membership number FIB42279. ICO registration ZA900683. <a href="/privacy">Privacy notice</a>.</p>
   </div>
@@ -157,11 +166,12 @@ const QUESTIONS = [
 
 let idx = 0;
 const answers = new Array(QUESTIONS.length).fill(null);
+let lastResult = null;
 
 function show(id){ document.querySelectorAll('#hero,#quiz,#memo').forEach(s=>s.classList.remove('active')); if(id!=='hero'){document.getElementById('hero').style.display='none'}else{document.getElementById('hero').style.display='block'} document.getElementById(id).classList.add('active'); window.scrollTo({top:0}); }
 
 function startQuiz(){ idx=0; render(); show('quiz'); }
-function restart(){ answers.fill(null); document.getElementById('hero').style.display='block'; document.querySelectorAll('#quiz,#memo').forEach(s=>s.classList.remove('active')); window.scrollTo({top:0}); }
+function restart(){ answers.fill(null); document.getElementById('hero').style.display='block'; document.querySelectorAll('#quiz,#memo').forEach(s=>s.classList.remove('active')); document.getElementById('capform').style.display='flex'; document.getElementById('capok').style.display='none'; window.scrollTo({top:0}); }
 
 function render(){
   const q = QUESTIONS[idx];
@@ -190,14 +200,17 @@ function finish(){
 
   document.getElementById('scorenum').textContent=total;
   const v=document.getElementById('verdicttext'); const note=document.getElementById('memonote');
-  if(total>=70){ v.textContent='Strong footing'; v.className='verdict strong';
+  let band;
+  if(total>=70){ band='strong'; v.textContent='Strong footing'; v.className='verdict strong';
     note.innerHTML='<strong>Lenders will take this seriously.</strong> Deals shaped like yours get funded — the work now is choosing the right structure and the right lenders first time, so you keep terms strong and timelines short.';
-  } else if(total>=50){ v.textContent='Workable — needs structuring'; v.className='verdict workable';
+  } else if(total>=50){ band='workable'; v.textContent='Workable — needs structuring'; v.className='verdict workable';
     note.innerHTML='<strong>Fundable, but not as it stands.</strong> Deals like this usually complete when they\'re restructured — often a vendor loan, a different security mix, or staging the purchase. The gap between \u201cworkable\u201d and \u201cfunded\u201d is structuring, done early.';
-  } else { v.textContent='Needs reshaping'; v.className='verdict reshape';
+  } else { band='reshape'; v.textContent='Needs reshaping'; v.className='verdict reshape';
     note.innerHTML='<strong>Honestly: hard to fund in this shape.</strong> That\'s not the end — it\'s a signal to reshape before approaching anyone. Deposit size, seller participation and timing are usually the movable pieces. Better to hear that now than after months of declines.';
   }
   document.getElementById('memodate').textContent = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+
+  lastResult={total:total, band:band, deal:rows[0][1], deposit:rows[2][1], profit:rows[3][1]};
 
   const lines = rows.map(r=>`${r[0]}: ${r[1]} (${r[2]} pts)`).join('%0D%0A');
   const subject = encodeURIComponent(`Fundability Score ${total}/100 — free structuring session`);
@@ -206,6 +219,29 @@ function finish(){
 
   show('memo');
 }
+
+document.getElementById('capform').addEventListener('submit', async function(e){
+  e.preventDefault();
+  var em=document.getElementById('capemail').value.trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)||!lastResult)return;
+  var src='granton-score|'+lastResult.total+'|'+lastResult.band+'|'+lastResult.deal+'|'+lastResult.deposit+'|'+lastResult.profit;
+  if(src.length>180)src=src.slice(0,180);
+  try{
+    await fetch('https://pesgnqmohcawmpcmsupl.supabase.co/rest/v1/funnel_signups',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'Content-Profile':'sheetmtd',
+        'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlc2ducW1vaGNhd21wY21zdXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzMjE4OTAsImV4cCI6MjA5Mzg5Nzg5MH0.NQv6-XMYj5bTJKeohcZ58-KdDS2JNQlPP4N9ywxbvIs',
+        'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdWJhYmFzZSIsInJlZiI6InBlc2ducW1vaGNhd21wY21zdXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzMjE4OTAsImV4cCI6MjA5Mzg5Nzg5MH0.NQv6-XMYj5bTJKeohcZ58-KdDS2JNQlPP4N9ywxbvIs',
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify({email:em.toLowerCase(),source:src})
+    });
+  }catch(err){}
+  document.getElementById('capform').style.display='none';
+  document.getElementById('capok').style.display='block';
+});
 </script>
 </body>
 </html>
