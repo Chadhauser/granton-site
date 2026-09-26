@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commercial mortgage calculator — what a lender will actually check | Granton Finance</title>
+<meta name="description" content="A free commercial mortgage calculator: monthly payments, loan to value and interest cover, including the stressed rate most lenders test. See where you stand before you apply.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://granton.finance/commercial-mortgage-calculator">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#1a2b33">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Commercial Mortgage Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"},"provider":{"@type":"Organization","name":"Granton Finance — Edwards Bros (Spaldwick) Ltd"}}</script>
+<style>
+  :root{
+    --ink:#1a2b33;--ink-2:#3d5560;--paper:#f4f1ea;--paper-2:#eae4d7;
+    --line:#d6cdba;--brass:#9a6a3a;--brass-deep:#7a5228;
+    --good:#3f6b4f;--warn:#9a6a3a;--bad:#8a3d33;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Iowan Old Style","Palatino Linotype","Palatino",Georgia,serif;color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  header.top{border-bottom:1px solid var(--line);background:var(--paper)}
+  .top-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1080px;margin:0 auto}
+  .brand{font-size:20px;letter-spacing:.02em;font-weight:600;text-decoration:none;color:var(--ink);display:flex;align-items:center}
+  .brand::before{content:"";display:block;width:13px;height:34px;flex:0 0 auto;background:url(/logo.svg) no-repeat center/contain;margin-right:12px}
+  .brand .mark{color:var(--brass)}
+  nav.top-nav a{font-family:"Helvetica Neue",Arial,sans-serif;font-size:13.5px;color:var(--ink-2);text-decoration:none;margin-left:22px}
+  nav.top-nav a:hover{color:var(--brass)}
+  main{padding:64px 0 80px}
+  .doc{max-width:46rem}
+  .eyebrow{font-family:"Helvetica Neue",Arial,sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);font-weight:700;margin-bottom:18px}
+  h1{font-size:clamp(32px,5vw,46px);line-height:1.12;letter-spacing:-.015em;font-weight:600}
+  .stand{font-size:18.5px;color:var(--ink-2);margin-top:18px;padding-bottom:20px;border-bottom:2px solid var(--brass)}
+  h2{font-size:23px;font-weight:600;margin:40px 0 12px;padding-top:24px;border-top:1px solid var(--line);line-height:1.2}
+  h3{font-size:18px;font-weight:600;margin:26px 0 8px}
+  p{margin-bottom:14px;color:var(--ink-2);font-size:16.5px}
+  a{color:var(--brass-deep)}
+  .field{margin:18px 0}
+  .field label{display:block;font-family:"Helvetica Neue",Arial,sans-serif;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);font-weight:700;margin-bottom:6px}
+  .field input{width:100%;padding:12px 14px;font-family:"Helvetica Neue",Arial,sans-serif;font-size:17px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+  .field input:focus{outline:2px solid var(--brass);border-color:var(--brass)}
+  .field .hint{font-size:13.5px;color:var(--ink-2);font-family:"Helvetica Neue",Arial,sans-serif;margin-top:5px;text-transform:none;letter-spacing:0;font-weight:400}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+  .toggle{display:flex;border:1px solid var(--line);background:var(--paper)}
+  .toggle label{flex:1;margin:0;text-align:center;cursor:pointer;font-family:"Helvetica Neue",Arial,sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-2)}
+  .toggle input{position:absolute;opacity:0;width:1px;height:1px}
+  .toggle span{display:block;padding:12px 8px}
+  .toggle input:checked+span{background:var(--ink);color:var(--paper)}
+  .toggle input:focus-visible+span{outline:2px solid var(--brass);outline-offset:-3px}
+  .results{margin-top:36px;border-top:2px solid var(--brass);padding-top:22px}
+  .headline{font-size:clamp(34px,6vw,44px);font-weight:600;letter-spacing:-.02em;line-height:1.1}
+  .headline-sub{font-family:"Helvetica Neue",Arial,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);font-weight:700;margin-top:6px}
+  table.out{width:100%;border-collapse:collapse;font-family:"Helvetica Neue",Arial,sans-serif;font-size:15px;margin:22px 0 6px}
+  table.out td{padding:9px 0;border-bottom:1px solid var(--paper-2);color:var(--ink-2)}
+  table.out td:last-child{text-align:right;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+  .verdict{margin-top:18px;padding:18px 20px;border-left:4px solid var(--brass);background:var(--paper-2)}
+  .verdict strong{display:block;font-family:"Helvetica Neue",Arial,sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+  .verdict p{margin:0;font-size:16px}
+  .v-good{border-left-color:var(--good)}.v-good strong{color:var(--good)}
+  .v-warn{border-left-color:var(--warn)}.v-warn strong{color:var(--warn)}
+  .v-bad{border-left-color:var(--bad)}.v-bad strong{color:var(--bad)}
+  .cta{background:var(--paper-2);border:1px solid var(--line);border-left:4px solid var(--brass);padding:26px 28px;margin-top:44px}
+  .cta h2{border-top:0;padding-top:0;margin-top:0}
+  .cta .sans{font-family:"Helvetica Neue",Arial,sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);font-weight:700}
+  .cta button{width:100%;padding:14px;font-family:"Helvetica Neue",Arial,sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;background:var(--ink);color:var(--paper);border:0;cursor:pointer;margin-top:6px}
+  .cta button:hover{background:var(--brass-deep)}
+  .cta button:disabled{opacity:.6;cursor:default}
+  .err{font-family:"Helvetica Neue",Arial,sans-serif;font-size:14px;color:var(--bad);font-weight:700;margin:10px 0 0}
+  .smallprint{font-family:"Helvetica Neue",Arial,sans-serif;font-size:12.5px;color:var(--ink-2);margin-top:16px}
+  .related{margin:44px 0 8px;padding:22px 24px;border:1px solid rgba(0,0,0,.12);border-radius:6px;background:rgba(255,255,255,.55)}
+  .related .rt{font-family:"Helvetica Neue",Arial,sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin:0 0 10px}
+  .related ul{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
+  .related li{break-inside:avoid;margin:0 0 8px;font-size:16px}
+  .related a{text-decoration:none;border-bottom:1px solid rgba(0,0,0,.25)}
+  @media(max-width:600px){.related ul{columns:1}}
+  footer{background:var(--ink);color:rgba(244,241,234,.7);padding:40px 0;font-family:"Helvetica Neue",Arial,sans-serif;font-size:13px;line-height:1.7}
+  footer a{color:var(--brass);text-decoration:none}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<meta property="og:type" content="article">
+<meta property="og:title" content="Commercial mortgage calculator — what a lender will actually check | Granton Finance">
+<meta property="og:description" content="Monthly payments, loan to value and interest cover on a UK commercial mortgage, including the stressed rate most lenders test.">
+<meta property="og:url" content="https://granton.finance/commercial-mortgage-calculator">
+<meta property="og:site_name" content="Granton Finance">
+<meta name="twitter:card" content="summary">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="/">Granton<span class="mark"> Finance</span></a>
+    <nav class="top-nav"><a href="/score">Fundability score</a><a href="/">Back to site</a></nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+<div class="doc">
+  <div class="eyebrow">Free tool</div>
+  <h1>Commercial mortgage calculator</h1>
+  <p class="stand">The monthly payment is the easy part. This also works out the two figures a commercial lender underwrites on — loan to value and interest cover — and stresses the cover at a higher rate, the way a credit committee will.</p>
+
+  <div class="grid2">
+    <div class="field">
+      <label for="loan">Amount to borrow</label>
+      <input type="number" id="loan" value="500000" min="0" step="1000" inputmode="numeric">
+    </div>
+    <div class="field">
+      <label for="value">Property value</label>
+      <input type="number" id="value" value="750000" min="0" step="1000" inputmode="numeric">
+      <div class="hint">Purchase price, or valuation if refinancing</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="field">
+      <label for="rate">Interest rate %</label>
+      <input type="number" id="rate" value="6.5" min="0" max="30" step="0.01" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="term">Term, years</label>
+      <input type="number" id="term" value="20" min="1" max="40" step="1" inputmode="numeric">
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Repayment basis</label>
+    <div class="toggle">
+      <label><input type="radio" name="kind" value="repayment" checked><span>Capital &amp; interest</span></label>
+      <label><input type="radio" name="kind" value="interest"><span>Interest only</span></label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="rent">Annual rent, net of costs</label>
+    <input type="number" id="rent" value="75000" min="0" step="500" inputmode="numeric">
+    <div class="hint">Leave at zero if you will occupy the property yourself — the lender will look at trading profit instead</div>
+  </div>
+
+  <div class="results" aria-live="polite">
+    <div class="headline" id="out-monthly">£0</div>
+    <div class="headline-sub" id="out-monthly-label">per month</div>
+
+    <table class="out">
+      <tr><td>Total interest over the term</td><td id="out-interest">£0</td></tr>
+      <tr><td>Total repaid</td><td id="out-total">£0</td></tr>
+      <tr><td>Stamp duty, if buying</td><td id="out-sdlt">£0</td></tr>
+      <tr><td>Loan to value</td><td id="out-ltv">0%</td></tr>
+      <tr><td>Interest cover</td><td id="out-dscr">—</td></tr>
+      <tr><td>Interest cover if rates rise 2%</td><td id="out-stress">—</td></tr>
+    </table>
+
+    <div class="verdict" id="verdict">
+      <strong id="v-title">—</strong>
+      <p id="v-text"></p>
+    </div>
+  </div>
+
+  <h2>What a commercial lender actually checks</h2>
+  <p>Commercial lending works differently from a residential mortgage. A residential lender underwrites you. A commercial lender underwrites the property, and asks whether it can service the debt on its own.</p>
+
+  <h3>Loan to value</h3>
+  <p>Most commercial lenders will go to 70% of value, a few to 75%. Above that the options narrow sharply and pricing rises. An investment property let on a long lease to a strong covenant will stretch further than an owner-occupied unit in a weak location.</p>
+
+  <h3>Interest cover</h3>
+  <p>Rent divided by your annual mortgage payments. Lenders typically want at least 1.25, so the rent covers the payments with a quarter to spare. The part that catches people out is that most now stress this at two or three percentage points above the rate you are actually paying — which is why a deal that works today can still be declined.</p>
+
+  <h3>Stamp duty</h3>
+  <p>Commercial property uses a lower scale than residential. Nothing below £150,000, then 2% to £250,000, then 5% above that. The figure above assumes a freehold purchase in England or Northern Ireland; Scotland and Wales have their own regimes.</p>
+
+  <h3>Why the term matters more than people expect</h3>
+  <p>Stretching a loan from 15 years to 25 cuts the monthly payment and lifts the interest cover, which can be the difference between an offer and a decline. It also costs considerably more in total interest. Change the term above and watch both move.</p>
+
+  <div class="cta">
+    <div class="sans">Next step</div>
+    <h2>Have these numbers checked</h2>
+    <p>A chartered management accountant reads the deal the way the credit committee will, and tells you which lenders would look at it and at roughly what rate. No cost, no obligation.</p>
+    <form id="enquiry" novalidate>
+      <div class="field">
+        <label for="name">Your name</label>
+        <input type="text" id="name" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="phone">Phone (optional)</label>
+        <input type="tel" id="phone" autocomplete="tel">
+      </div>
+      <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+        <label for="website">Website</label>
+        <input type="text" id="website" tabindex="-1" autocomplete="off">
+      </div>
+      <p class="err" id="err" role="alert" hidden></p>
+      <button type="submit">Send these figures</button>
+    </form>
+    <div id="thanks" hidden>
+      <p><strong>Sent.</strong> We will come back to you within one working day.</p>
+    </div>
+    <p class="smallprint">Your figures above are sent with the enquiry. We use your details only to reply and never pass them on. You can also just email <a href="mailto:hello@granton.finance?subject=Commercial%20mortgage%20enquiry">hello@granton.finance</a>.</p>
+  </div>
+
+  <div class="related">
+    <p class="rt">Related</p>
+    <ul>
+      <li><a href="/score">Fundability score</a></li>
+      <li><a href="/mbo-calculator">Management buyout calculator</a></li>
+      <li><a href="/business-acquisition-loan">Business acquisition loan</a></li>
+      <li><a href="/management-buyout-funding">Management buyout funding</a></li>
+      <li><a href="/auction-bridging-finance">Auction bridging finance</a></li>
+      <li><a href="/land-bridging-loan">Land bridging loan</a></li>
+    </ul>
+  </div>
+
+</div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Granton Finance is a trading name of Edwards Bros (Spaldwick) Ltd, a company registered in England &amp; Wales (no. 00598511), registered office Fenland House, 15b Hostmoor Avenue, March, Cambridgeshire, PE15 0AX, and a member of the Finance &amp; Intermediary Broker Association (FIBA), membership number FIB42279. We introduce limited-company clients to commercial lenders and are remunerated by commission, the amount of which is disclosed in writing before any drawdown. We provide general commercial-finance introduction, not regulated financial advice, and we do not advise on or arrange consumer credit.</p>
+    <p>This calculator is for guidance only. It is not a quotation, an offer of finance, or advice. Actual terms depend on the lender's own assessment of the property, the borrower and the market at the time.</p>
+    <p><a href="/privacy">Privacy notice</a> · © 2026 Edwards Bros (Spaldwick) Ltd.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var ENDPOINT = '/api/enquiry';
+  var $ = function(id){ return document.getElementById(id); };
+  function n(id){ var v = parseFloat($(id).value); return isFinite(v) && v >= 0 ? v : 0; }
+  function gbp(x){ return "\u00a3" + Math.round(x).toLocaleString("en-GB"); }
+  function gbp2(x){ return "\u00a3" + x.toLocaleString("en-GB",{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+  function payment(P, annualPct, years){
+    var r = annualPct/100/12, k = Math.round(years*12);
+    if(k <= 0 || P <= 0) return 0;
+    if(r === 0) return P/k;
+    var f = Math.pow(1+r, k);
+    return P * (r*f)/(f-1);
+  }
+  function sdlt(price){
+    if(price <= 150000) return 0;
+    if(price <= 250000) return (price-150000)*0.02;
+    return 2000 + (price-250000)*0.05;
+  }
+
+  function calc(){
+    var P = n('loan'), V = n('value'), rate = n('rate'), yrs = n('term'), rent = n('rent');
+    var io = document.querySelector('input[name=kind]:checked').value === 'interest';
+
+    var monthly = io ? P*(rate/100/12) : payment(P, rate, yrs);
+    var totalInt = io ? monthly*yrs*12 : (monthly*yrs*12 - P);
+    var totalPaid = io ? (monthly*yrs*12 + P) : monthly*yrs*12;
+
+    $('out-monthly').textContent = gbp2(monthly || 0);
+    $('out-monthly-label').textContent = io ? 'per month, interest only' : 'per month';
+    $('out-interest').textContent = gbp(totalInt || 0);
+    $('out-total').textContent = gbp(totalPaid || 0);
+    $('out-sdlt').textContent = gbp(sdlt(V));
+
+    var ltv = V > 0 ? P/V*100 : 0;
+    $('out-ltv').textContent = (V > 0 ? ltv.toFixed(1) : '0.0') + '%';
+
+    var annualDebt = monthly*12, d = null, s = null;
+    if(rent > 0 && annualDebt > 0){
+      d = rent/annualDebt;
+      var sMonthly = io ? P*((rate+2)/100/12) : payment(P, rate+2, yrs);
+      s = rent/(sMonthly*12);
+      $('out-dscr').textContent = d.toFixed(2) + '\u00d7';
+      $('out-stress').textContent = s.toFixed(2) + '\u00d7';
+    } else {
+      $('out-dscr').textContent = '\u2014';
+      $('out-stress').textContent = '\u2014';
+    }
+
+    var v = $('verdict'), vt = $('v-title'), vx = $('v-text');
+    v.className = 'verdict';
+
+    if(P <= 0 || V <= 0){
+      vt.textContent = 'Enter the figures';
+      vx.textContent = 'Put in what you want to borrow and what the property is worth, and this will tell you how a lender would read it.';
+      return;
+    }
+    if(ltv > 75){
+      v.className += ' v-bad';
+      vt.textContent = 'Too much against the value';
+      vx.textContent = 'At ' + ltv.toFixed(1) + '% you are above where mainstream commercial lenders go. Either a larger deposit, a second charge elsewhere, or a different price. Worth a conversation before you waste time on applications.';
+    } else if(rent > 0 && s !== null && s < 1.10){
+      v.className += ' v-bad';
+      vt.textContent = 'Fails the stress test';
+      vx.textContent = 'The rent covers the payments today, or nearly, but at ' + (rate+2).toFixed(2) + '% it does not. Most lenders test exactly this. A longer term or a smaller loan usually fixes it.';
+    } else if(rent > 0 && d !== null && d < 1.25){
+      v.className += ' v-warn';
+      vt.textContent = 'Cover is below the usual minimum';
+      vx.textContent = 'At ' + d.toFixed(2) + '\u00d7 you are under the 1.25 most lenders want. Stretching the term lifts the cover without changing the loan — try it above.';
+    } else if(ltv > 70){
+      v.className += ' v-warn';
+      vt.textContent = 'Above 70% — fewer lenders';
+      vx.textContent = 'At ' + ltv.toFixed(1) + '% you are into the 75% bracket, which a handful of lenders will do but at a price. Worth knowing which before you apply.';
+    } else if(rent <= 0){
+      v.className += ' v-warn';
+      vt.textContent = 'Owner-occupied — assessed differently';
+      vx.textContent = 'With no rent, the lender underwrites your trading profit instead, usually wanting the business to cover the payments comfortably from EBITDA. The loan to value above still applies.';
+    } else {
+      v.className += ' v-good';
+      vt.textContent = 'This is the shape lenders like';
+      vx.textContent = 'At ' + ltv.toFixed(1) + '% loan to value and ' + d.toFixed(2) + '\u00d7 cover, holding at ' + s.toFixed(2) + '\u00d7 under stress, this fits mainstream commercial criteria. The question is which lender prices it best.';
+    }
+  }
+
+  ['loan','value','rate','term','rent'].forEach(function(id){ $(id).addEventListener('input', calc); });
+  Array.prototype.forEach.call(document.querySelectorAll('input[name=kind]'), function(el){ el.addEventListener('change', calc); });
+
+  $('enquiry').addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('err'), name = $('name').value.trim(), email = $('email').value.trim();
+    if(!name){ err.textContent = 'Please add your name.'; err.hidden = false; $('name').focus(); return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ err.textContent = 'That email address does not look right.'; err.hidden = false; $('email').focus(); return; }
+    err.hidden = true;
+    var btn = this.querySelector('button');
+    btn.disabled = true; btn.textContent = 'Sending\u2026';
+    fetch(ENDPOINT, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name:name, email:email, phone:$('phone').value.trim(), website:$('website').value,
+        loan:n('loan'), value:n('value'), rate:n('rate'), term:n('term'), rent:n('rent'),
+        repayment:document.querySelector('input[name=kind]:checked').value,
+        monthly:$('out-monthly').textContent, ltv:$('out-ltv').textContent,
+        cover:$('out-dscr').textContent, coverStressed:$('out-stress').textContent,
+        source:location.pathname
+      })
+    }).then(function(r){
+      if(!r.ok) throw new Error(r.status);
+      $('enquiry').hidden = true; $('thanks').hidden = false;
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = 'Send these figures';
+      err.textContent = 'That did not send. Please email hello@granton.finance instead.';
+      err.hidden = false;
+    });
+  });
+
+  calc();
+})();
+</script>
+</body>
+</html>
